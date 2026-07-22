@@ -1,12 +1,12 @@
-const CACHE_NAME = 'words-of-wisdome-v1';
+const CACHE_NAME = 'words-of-wisdom-v2';
 const ASSETS_TO_CACHE = [
-  '/',
-  '/index.html',
-  '/manifest.json',
-  '/stickman_assets/logo.svg',
-  '/stickman_assets/hope_stickman.svg',
-  '/stickman_assets/guy_distressed.svg',
-  '/stickman_assets/scholar_stickman.svg'
+  './',
+  './index.html',
+  './manifest.json',
+  './stickman_assets/logo.svg',
+  './stickman_assets/hope_stickman.svg',
+  './stickman_assets/guy_distressed.svg',
+  './stickman_assets/scholar_stickman.svg'
 ];
 
 // Install Event
@@ -14,7 +14,9 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       console.log('SW: Pre-caching Core Assets');
-      return cache.addAll(ASSETS_TO_CACHE);
+      return Promise.allSettled(
+        ASSETS_TO_CACHE.map(url => cache.add(url).catch(err => console.warn('SW cache failed for', url, err)))
+      );
     })
   );
   self.skipWaiting();
