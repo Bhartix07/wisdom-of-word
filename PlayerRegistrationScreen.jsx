@@ -163,7 +163,7 @@ const PlayerRegistrationScreen = ({ onComplete }) => {
         <div className="flex flex-col items-center mb-4 md:mb-6">
           <div className="w-16 h-16 md:w-20 md:h-20 bg-white/10 backdrop-blur-3xl rounded-2xl md:rounded-[2rem] mb-4 md:mb-6 flex items-center justify-center border border-white/20 shadow-2xl overflow-hidden -rotate-6 transform hover:rotate-0 transition-all duration-700">
             <img
-              src="/stickman_assets/logo.svg"
+              src="stickman_assets/logo.svg"
               alt="Words of Wisdom"
               className="w-10 h-10 md:w-12 md:h-12 object-contain"
             />

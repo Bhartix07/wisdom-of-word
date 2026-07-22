@@ -9,7 +9,7 @@ import './index.css';
 const SplashContent = () => (
     <div className="relative z-10 flex flex-col items-center justify-center h-full animate-fade-in text-center px-6">
         <div className="w-44 h-44 bg-white/5 backdrop-blur-3xl rounded-[3rem] mb-12 flex items-center justify-center border border-white/20 shadow-2xl -rotate-6 transform hover:rotate-0 transition-transform duration-700">
-            <img src="/stickman_assets/logo.svg" alt="Stickman" className="w-24 h-24 animate-pulse" />
+            <img src="stickman_assets/logo.svg" alt="Stickman" className="w-24 h-24 animate-pulse" />
         </div>
         <div className="flex flex-col items-center">
             <h2 className="text-4xl md:text-8xl font-black text-white leading-tight uppercase tracking-tighter drop-shadow-2xl">

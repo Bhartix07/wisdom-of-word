@@ -759,7 +759,7 @@ export default function WordsOfHopeScreen({
           <div className="absolute top-6 left-6 z-[200] animate-slide-in-left cursor-default">
             <div className="w-16 h-16 bg-white p-1 rounded-2xl shadow-4xl border-2 border-white/20 transform hover:scale-105 transition-transform overflow-hidden">
               <img
-                src="/ME.jpeg"
+                src="ME.jpeg"
                 alt="Mind Empowered"
                 className="w-full h-full object-contain rounded-xl"
               />
@@ -770,7 +770,7 @@ export default function WordsOfHopeScreen({
             <div className="flex flex-col items-center animate-scale-in">
               <div className="w-40 h-40 bg-white/5 backdrop-blur-3xl rounded-[3rem] mb-12 flex items-center justify-center border border-white/20 shadow-[0_30px_60px_rgba(0,0,0,0.5)] -rotate-6 transform hover:rotate-0 transition-all duration-700">
                 <img
-                  src="/stickman_assets/hope_stickman.svg"
+                  src="stickman_assets/hope_stickman.svg"
                   alt="Hope"
                   className="w-28 h-28 animate-pulse drop-shadow-[0_0_20px_rgba(45,212,191,0.5)]"
                 />
@@ -839,7 +839,7 @@ export default function WordsOfHopeScreen({
 
           <div className="w-16 h-16 md:w-24 md:h-24 bg-teal-500/20 backdrop-blur-xl rounded-2xl mb-4 md:mb-6 flex items-center justify-center border border-teal-400/30">
             <img
-              src="/stickman_assets/hope_stickman.svg"
+              src="stickman_assets/hope_stickman.svg"
               alt="Tutor"
               className="w-12 h-12 md:w-16 md:h-16 animate-bounce-subtle"
             />
@@ -1107,7 +1107,7 @@ export default function WordsOfHopeScreen({
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 bg-teal-100 rounded-xl flex items-center justify-center p-2">
                       <img
-                        src="/stickman_assets/scholar_stickman.svg"
+                        src="stickman_assets/scholar_stickman.svg"
                         className="w-full h-full"
                         alt=""
                       />
@@ -1216,8 +1216,8 @@ export default function WordsOfHopeScreen({
               <img
                 src={
                   harmony > 30
-                    ? "/stickman_assets/hope_stickman.svg"
-                    : `/stickman_assets/${playerGender}_distressed.svg`
+                    ? "stickman_assets/hope_stickman.svg"
+                    : `stickman_assets/${playerGender}_distressed.svg`
                 }
                 alt="Player"
                 className="w-24 h-24 md:w-32 md:h-32 drop-shadow-2xl"
@@ -1372,7 +1372,7 @@ export default function WordsOfHopeScreen({
         <div className="relative z-10 max-w-xl w-full p-6 md:p-8 text-center animate-pop-in flex flex-col items-center stickman-rescue-results">
           <div className="w-24 h-24 md:w-32 md:h-32 bg-teal-400 rounded-3xl md:rounded-[2.5rem] mb-6 md:mb-8 flex items-center justify-center shadow-2xl border-2 md:border-4 border-white overflow-hidden">
             <img
-              src="/stickman_assets/hope_stickman.svg"
+              src="stickman_assets/hope_stickman.svg"
               alt="Success"
               className="w-16 h-16 md:w-20 md:h-20 drop-shadow-lg"
             />

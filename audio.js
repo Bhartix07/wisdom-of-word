@@ -60,7 +60,13 @@ class SoundEngine {
     async getBuffer(url) {
         if (this.cache[url]) return this.cache[url];
         try {
-            const response = await fetch(url);
+            const baseUrl = import.meta.env.BASE_URL || './';
+            const cleanUrl = url.startsWith('/') ? (baseUrl.endsWith('/') ? baseUrl + url.slice(1) : baseUrl + '/' + url.slice(1)) : url;
+            const response = await fetch(cleanUrl);
+            if (!response.ok) {
+                console.warn(`Audio fetch failed for ${cleanUrl}: status ${response.status}`);
+                return null;
+            }
             const arrayBuffer = await response.arrayBuffer();
             const audioBuffer = await this.ctx.decodeAudioData(arrayBuffer);
             this.cache[url] = audioBuffer;
