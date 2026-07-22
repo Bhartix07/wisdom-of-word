@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import GameBackground from "./GameBackground";
 import { TERMINOLOGY_DATA } from "./terminologyData";
 
@@ -14,7 +14,7 @@ export default function WordsOfHopeScreen({
   const [score, setScore] = useState(0);
   const [mistakes, setMistakes] = useState(0);
   const [harmony, setHarmony] = useState(50);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  const [_currentIndex, setCurrentIndex] = useState(0);
   const [explanation, setExplanation] = useState(null);
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const [stigmaAlert, setStigmaAlert] = useState(null);
@@ -31,7 +31,7 @@ export default function WordsOfHopeScreen({
   const [tipsRemaining, setTipsRemaining] = useState(2);
   const [isSpeedBoosted, setIsSpeedBoosted] = useState(false);
   const isFirstSpawnRef = useRef(true);
-  const [unlockedLevel, setUnlockedLevel] = useState(1);
+  const [unlockedLevel, _setUnlockedLevel] = useState(1);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
@@ -63,7 +63,7 @@ export default function WordsOfHopeScreen({
   );
 
   // Safe audio caller to avoid runtime errors when audioManager is missing
-  const safeAudio = (method, ...args) => {
+  const safeAudio = useCallback((method, ...args) => {
     try {
       if (audioManager && typeof audioManager[method] === 'function') {
         audioManager[method](...args);
@@ -71,7 +71,7 @@ export default function WordsOfHopeScreen({
     } catch (e) {
       console.warn('AudioManager error:', e);
     }
-  };
+  }, [audioManager]);
 
   useEffect(() => {
     safeAudio('init');
@@ -82,7 +82,7 @@ export default function WordsOfHopeScreen({
       }, 5000);
       return () => clearTimeout(timer);
     }
-  }, [gameState]);
+  }, [gameState, safeAudio]);
 
   const startGame = () => {
     const isMobile = window.innerWidth < 768;
@@ -157,11 +157,9 @@ export default function WordsOfHopeScreen({
     };
   }, [stigmaAlert]);
 
-  const togglePause = () => {
-    if (gameState !== "PLAYING") return;
+  const togglePause = useCallback(() => {
     setLocalPaused((prev) => {
       const next = !prev;
-      pausedRef.current = next;
       if (next) {
         safeAudio('pauseAll');
       } else {
@@ -169,7 +167,7 @@ export default function WordsOfHopeScreen({
       }
       return next;
     });
-  };
+  }, [safeAudio]);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -191,7 +189,7 @@ export default function WordsOfHopeScreen({
       window.removeEventListener("keydown", handleKeyDown);
       window.removeEventListener("keyup", handleKeyUp);
     };
-  }, [gameState]);
+  }, [gameState, togglePause]);
 
   const handlePointerMove = (e) => {
     if (gameState !== "PLAYING" || isPaused || !gameContainerRef.current)
@@ -277,8 +275,17 @@ export default function WordsOfHopeScreen({
     requestRef.current = requestAnimationFrame(update);
   };
 
+  const updateRef = useRef(update);
   useEffect(() => {
-    requestRef.current = requestAnimationFrame(update);
+    updateRef.current = update;
+  });
+
+  useEffect(() => {
+    const loop = () => {
+      if (updateRef.current) updateRef.current();
+      requestRef.current = requestAnimationFrame(loop);
+    };
+    requestRef.current = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(requestRef.current);
   }, [gameState]);
 
